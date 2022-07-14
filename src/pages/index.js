@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Icon from "feather-icons-react";
 import Split from "react-split";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -24,8 +25,18 @@ function Index() {
 
   return (
     <>
-      <header className="h-12 flex flex-row items-center p-4 bg-slate-700">
+      <header className="h-12 flex flex-row items-center justify-between px-4 bg-slate-700">
         <h3 className="text-gray-200">CSS Playgrounds</h3>
+        <div className="flex">
+          <a
+            className="rounded-full bg-slate-500 p-1 pt-2"
+            href="https://github.com/sanesource/css-playgrounds/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Icon icon="github" size={28} color="white" />
+          </a>
+        </div>
       </header>
 
       <Split className="h-[calc(100vh-3rem)] flex flex-row" sizes={[60, 40]}>

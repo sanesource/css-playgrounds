@@ -29,3 +29,16 @@
   background-color: #64748b !important;
   color: #f8fafc !important;
 }
+
+@media only screen and (max-width: 600px) {
+  body > div {
+    display: none;
+  }
+  body::after {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: "Only available in Desktop/Laptop devices";
+  }
+}
