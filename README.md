@@ -7,9 +7,11 @@ Sandbox to play with different CSS Frameworks.
 - [x] Vanilla
 - [x] SCSS
 - [x] Bootstrap
-- [ ] Bulma
+- [x] Bulma
 - [x] Tailwind
-- [ ] Materialize
+- [x] Materialize
+
+For any other CSS Framework support, kindly create an issue.
 
 ### Features
 
