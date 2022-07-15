@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import Icon from "feather-icons-react";
 import Split from "react-split";
 import Dropdown from "react-dropdown";
@@ -7,7 +7,11 @@ import "react-dropdown/style.css";
 import CodeEditor from "../components/CodeEditor";
 import Output from "../components/Output";
 import { AppContext } from "../contexts";
-import { LANGUAGES, DROPDOWN_OPTIONS } from "../constants";
+import {
+  LANGUAGES,
+  DROPDOWN_OPTIONS,
+  EDITOR_FONT_SIZE_BOUNDS,
+} from "../constants";
 
 function getTabClassNames(name, currentTab) {
   const baseStyle = "h-full px-4 text-slate-50";
@@ -17,11 +21,32 @@ function getTabClassNames(name, currentTab) {
 
 function Index() {
   const {
+    editorOptions,
+    setEditorOptions,
     selectedTab,
     setSelectedTab,
     selectedPlayground,
     setSelectedPlayground,
   } = useContext(AppContext);
+
+  const [minFontSize, maxFontSize] = EDITOR_FONT_SIZE_BOUNDS;
+
+  const fontSize = useMemo(() => {
+    return parseInt(editorOptions["fontSize"].split("px")[0]);
+  }, [editorOptions]);
+
+  const updateFontSize = useCallback(
+    (type) => {
+      if (
+        (type === "inc" && fontSize < maxFontSize) ||
+        (type === "dec" && fontSize > minFontSize)
+      ) {
+        const newFontSize = type === "inc" ? fontSize + 2 : fontSize - 2;
+        setEditorOptions({ ...editorOptions, fontSize: `${newFontSize}px` });
+      }
+    },
+    [minFontSize, maxFontSize, fontSize, editorOptions, setEditorOptions]
+  );
 
   return (
     <>
@@ -57,7 +82,29 @@ function Index() {
               </button>
             </div>
             <div className="flex flex-row items-center">
+              <div className="flex flex-row items-center mr-8">
+                <Icon
+                  className={`cursor-pointer ${
+                    fontSize <= minFontSize ? "text-slate-400" : ""
+                  }`}
+                  icon="minus-circle"
+                  size={18}
+                  color="white"
+                  onClick={() => updateFontSize("dec")}
+                />
+                <Icon className="mx-2" icon="type" size={22} color="white" />
+                <Icon
+                  className={`cursor-pointer ${
+                    fontSize >= maxFontSize ? "text-slate-400" : ""
+                  }`}
+                  icon="plus-circle"
+                  size={18}
+                  color="white"
+                  onClick={() => updateFontSize("inc")}
+                />
+              </div>
               <Dropdown
+                className="select-none"
                 value={selectedPlayground}
                 options={DROPDOWN_OPTIONS}
                 onChange={({ value }) => setSelectedPlayground(value)}

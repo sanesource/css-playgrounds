@@ -13,6 +13,8 @@ export const PLAYGROUNDS = {
   TAILWIND: "tailwind",
 };
 
+export const EDITOR_FONT_SIZE_BOUNDS = [12, 24];
+
 export const DROPDOWN_OPTIONS = Object.entries(PLAYGROUNDS).map(([k, v]) => ({
   value: v,
   label: k,

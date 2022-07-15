@@ -8,6 +8,7 @@ export const AppContextProvider = ({ children }) => {
   const [selectedPlayground, setSelectedPlayground] = useState(
     PLAYGROUNDS.VANILLA
   );
+  const [editorOptions, setEditorOptions] = useState({ fontSize: "12px" });
   const [htmlCode, setHTMLCode] = useState(
     DEFAULT_CODE[selectedPlayground].HTML
   );
@@ -24,6 +25,8 @@ export const AppContextProvider = ({ children }) => {
           setHTMLCode(DEFAULT_CODE[pg].HTML);
           setCSSCode(DEFAULT_CODE[pg].CSS);
         },
+        editorOptions,
+        setEditorOptions,
         htmlCode,
         setHTMLCode,
         cssCode,

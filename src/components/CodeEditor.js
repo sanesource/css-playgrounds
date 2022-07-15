@@ -7,6 +7,7 @@ import { debounce } from "../utils";
 function CodeEditor() {
   const {
     selectedTab,
+    editorOptions,
     htmlCode,
     cssCode,
     setHTMLCode,
@@ -23,6 +24,7 @@ function CodeEditor() {
   if (selectedTab === LANGUAGES.HTML) {
     return (
       <Editor
+        options={editorOptions}
         language={LANGUAGES.HTML}
         value={htmlCode}
         onChange={updateHTML}
