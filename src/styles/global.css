@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow-y: hidden;
+}
+
 .gutter {
   background-color: #eee;
   background-repeat: no-repeat;

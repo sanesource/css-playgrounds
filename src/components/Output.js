@@ -17,6 +17,11 @@ function Output() {
       setSrcDoc(_srcDoc);
     };
 
+    const updateStyles = () => {
+      styles.innerHTML = cssCode;
+      doc.head.append(styles);
+    };
+
     switch (selectedPlayground) {
       case PLAYGROUNDS.SCSS: {
         Sass.compile(cssCode, (res) => {
@@ -26,10 +31,31 @@ function Output() {
         });
         break;
       }
+      case PLAYGROUNDS.BULMA: {
+        const bulmaCSS = doc.createElement("link");
+        bulmaCSS.rel = "stylesheet";
+        bulmaCSS.href =
+          "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+        doc.head.appendChild(bulmaCSS);
+        updateStyles();
+        updateDoc();
+        break;
+      }
+      case PLAYGROUNDS.MATERIALIZE: {
+        const materializeCSS = doc.createElement("link");
+        materializeCSS.rel = "stylesheet";
+        materializeCSS.href =
+          "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css";
+        doc.head.appendChild(materializeCSS);
+        updateStyles();
+        updateDoc();
+        break;
+      }
       case PLAYGROUNDS.TAILWIND: {
         const tailwindCdn = doc.createElement("script");
         tailwindCdn.src = "https://cdn.tailwindcss.com";
         doc.head.appendChild(tailwindCdn);
+        updateStyles();
         updateDoc();
         break;
       }
@@ -40,12 +66,12 @@ function Output() {
           "https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css";
         bootstrapCSS.crossOrigin = "anonymous";
         doc.head.appendChild(bootstrapCSS);
+        updateStyles();
         updateDoc();
         break;
       }
       default: {
-        styles.innerHTML = cssCode;
-        doc.head.append(styles);
+        updateStyles();
         updateDoc();
       }
     }
@@ -53,7 +79,7 @@ function Output() {
 
   return (
     <div>
-      <iframe srcDoc={srcDoc}></iframe>
+      <iframe className="w-full h-screen" srcDoc={srcDoc}></iframe>
     </div>
   );
 }

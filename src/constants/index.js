@@ -7,7 +7,9 @@ export const LANGUAGES = {
 export const PLAYGROUNDS = {
   VANILLA: "vanilla",
   SCSS: "scss",
+  BULMA: "bulma",
   BOOTSTRAP: "bootstrap",
+  MATERIALIZE: "materialize",
   TAILWIND: "tailwind",
 };
 
@@ -53,6 +55,49 @@ export const DEFAULT_CODE = {
   }
 }`
     ),
+  },
+
+  [PLAYGROUNDS.BULMA]: {
+    HTML: HTML_DEFAULT_CODE.replace(
+      INSERT_CODE,
+      `<article class="m-4 message is-info">
+    <div class="message-header">
+        <p>Info</p>
+        <button class="delete" aria-label="delete"></button>
+    </div>
+    <div class="message-body">
+    This is an <strong>information</strong> message.
+    </div>
+</article>`
+    ),
+    CSS: "",
+  },
+
+  [PLAYGROUNDS.MATERIALIZE]: {
+    HTML: HTML_DEFAULT_CODE.replace(
+      INSERT_CODE,
+      `<div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="https://picsum.photos/500" />
+          <span class="card-title">Card Title</span>
+        </div>
+        <div class="card-content">
+          <p>
+            I am a very simple card. I am good at containing small bits of
+            information. I am convenient because I require little markup to
+            use effectively.
+          </p>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>`
+    ),
+    CSS: "",
   },
 
   [PLAYGROUNDS.BOOTSTRAP]: {
