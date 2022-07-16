@@ -31,7 +31,14 @@ function CodeEditor() {
       />
     );
   }
-  return <Editor language={cssLang} value={cssCode} onChange={updateCSS} />;
+  return (
+    <Editor
+      options={editorOptions}
+      language={cssLang}
+      value={cssCode}
+      onChange={updateCSS}
+    />
+  );
 }
 
 export default CodeEditor;

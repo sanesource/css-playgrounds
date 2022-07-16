@@ -8,7 +8,10 @@ export const AppContextProvider = ({ children }) => {
   const [selectedPlayground, setSelectedPlayground] = useState(
     PLAYGROUNDS.VANILLA
   );
-  const [editorOptions, setEditorOptions] = useState({ fontSize: "12px" });
+  const [editorOptions, setEditorOptions] = useState({
+    minimap: { enabled: false },
+    fontSize: "12px",
+  });
   const [htmlCode, setHTMLCode] = useState(
     DEFAULT_CODE[selectedPlayground].HTML
   );
