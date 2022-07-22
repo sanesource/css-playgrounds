@@ -16,5 +16,5 @@ For any other CSS Framework support, kindly create an issue.
 ### Features
 
 - [ ] Download Code Zip
-- [ ] Local Code Saving
+- [x] Local Code Saving
 - [ ] Code Sharing
