@@ -13,20 +13,34 @@ function CodeEditor() {
     setHTMLCode,
     setCSSCode,
     selectedPlayground,
+    isSavedLocally,
+    setIsSavedLocally,
   } = useContext(AppContext);
 
   const cssLang =
     selectedPlayground === PLAYGROUNDS.SCSS ? LANGUAGES.SCSS : LANGUAGES.CSS;
 
-  const updateHTML = debounce(setHTMLCode);
-  const updateCSS = debounce(setCSSCode);
+  const updateHTML = debounce((val) => {
+    if (isSavedLocally) setIsSavedLocally(false);
+    setHTMLCode((prev) => ({
+      ...prev,
+      [selectedPlayground]: val,
+    }));
+  });
+  const updateCSS = debounce((val) => {
+    if (isSavedLocally) setIsSavedLocally(false);
+    setCSSCode((prev) => ({
+      ...prev,
+      [selectedPlayground]: val,
+    }));
+  });
 
   if (selectedTab === LANGUAGES.HTML) {
     return (
       <Editor
         options={editorOptions}
         language={LANGUAGES.HTML}
-        value={htmlCode}
+        value={htmlCode[selectedPlayground]}
         onChange={updateHTML}
       />
     );
@@ -35,7 +49,7 @@ function CodeEditor() {
     <Editor
       options={editorOptions}
       language={cssLang}
-      value={cssCode}
+      value={cssCode[selectedPlayground]}
       onChange={updateCSS}
     />
   );

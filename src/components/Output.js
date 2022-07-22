@@ -4,12 +4,14 @@ import { AppContext } from "../contexts";
 
 function Output() {
   const { htmlCode, cssCode, selectedPlayground } = useContext(AppContext);
+  const _htmlCode = htmlCode[selectedPlayground];
+  const _cssCode = cssCode[selectedPlayground];
 
   const [srcDoc, setSrcDoc] = useState("");
 
   useEffect(() => {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlCode, "text/html");
+    const doc = parser.parseFromString(_htmlCode, "text/html");
     const styles = doc.createElement("style");
 
     const updateDoc = () => {
@@ -18,13 +20,13 @@ function Output() {
     };
 
     const updateStyles = () => {
-      styles.innerHTML = cssCode;
+      styles.innerHTML = _cssCode;
       doc.head.append(styles);
     };
 
     switch (selectedPlayground) {
       case PLAYGROUNDS.SCSS: {
-        Sass.compile(cssCode, (res) => {
+        Sass.compile(_cssCode, (res) => {
           styles.innerHTML = res.text;
           doc.head.append(styles);
           updateDoc();
@@ -75,7 +77,7 @@ function Output() {
         updateDoc();
       }
     }
-  }, [htmlCode, cssCode, selectedPlayground]);
+  }, [_htmlCode, _cssCode, selectedPlayground]);
 
   return (
     <div>

@@ -108,7 +108,7 @@ export const DEFAULT_CODE = {
       `<div class="container">
       <button type="button" class="btn btn-primary">Primary Button</button>
       <button type="button" class="btn btn-secondary">Secondary Button</button>
-  </div>`
+    </div>`
     ),
     CSS: "",
   },

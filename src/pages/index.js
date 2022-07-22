@@ -6,6 +6,7 @@ import "react-dropdown/style.css";
 
 import CodeEditor from "../components/CodeEditor";
 import Output from "../components/Output";
+import { useSaveLocally } from "../hooks";
 import { AppContext } from "../contexts";
 import {
   LANGUAGES,
@@ -21,13 +22,25 @@ function getTabClassNames(name, currentTab) {
 
 function Index() {
   const {
+    htmlCode,
+    cssCode,
     editorOptions,
     setEditorOptions,
     selectedTab,
     setSelectedTab,
     selectedPlayground,
     setSelectedPlayground,
+    isSavedLocally,
+    setIsSavedLocally,
   } = useContext(AppContext);
+
+  function onSaveLocally() {
+    localStorage.setItem("htmlCode", JSON.stringify(htmlCode));
+    localStorage.setItem("cssCode", JSON.stringify(cssCode));
+    setIsSavedLocally(true);
+  }
+
+  useSaveLocally(onSaveLocally);
 
   const [minFontSize, maxFontSize] = EDITOR_FONT_SIZE_BOUNDS;
 
@@ -53,6 +66,17 @@ function Index() {
       <header className="h-12 flex flex-row items-center justify-between px-4 bg-slate-700">
         <h3 className="text-gray-200">CSS Playgrounds</h3>
         <div className="flex">
+          <div className="flex">
+            <button
+              disabled={isSavedLocally}
+              className={`mx-4 px-2 rounded text-gray-200 bg-slate-${
+                isSavedLocally ? "600" : "500"
+              }`}
+              onClick={onSaveLocally}
+            >
+              {isSavedLocally ? "Saved" : "Save Locally"}
+            </button>
+          </div>
           <a
             className="rounded-full bg-slate-500 p-1 pt-2"
             href="https://github.com/sanesource/css-playgrounds/"
